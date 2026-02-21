@@ -8,19 +8,101 @@
   <title>
     Karya Arybil Teknik
   </title>
-  <meta name="description" content="Simple landind page" />
+  <meta name="description" content="Simple landing page" />
   <meta name="keywords" content="" />
   <meta name="author" content="" />
   <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css" />
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
-  <style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">  <style>
     .gradient {
-      background: linear-gradient(90deg, #1d38ff 0%, #aed1ff 100%);
+      background: linear-gradient(90deg, #1E3A8A 0%, #4e86ff 100%);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .animate-fade-in-scale {
+      animation: fadeInScale 1s ease-out forwards;
+    }
+
+    .hero-text { animation-delay: 0.1s; }
+    .hero-text-main { animation-delay: 0.3s; }
+    .hero-text-desc { animation-delay: 0.5s; }
+    .hero-btn { animation-delay: 0.7s; }
+    .hero-image { animation-delay: 0.2s; }
+
+    .hero-container {
+      position: relative;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(90deg, #1E3A8A 0%, #4e86ff 100%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
     }
   </style>
+
+  <script>
+    window.addEventListener('scroll', function() {
+      const heroSection = document.getElementById('hero');
+      const heroContent = document.querySelector('.hero-content');
+      
+      if (heroContent) {
+        const heroTop = heroSection.offsetTop;
+        const scrollPosition = window.scrollY;
+        
+        if (scrollPosition > heroTop) {
+          const distance = scrollPosition - heroTop;
+          const maxDistance = window.innerHeight;
+          const opacity = Math.max(0, 1 - (distance / maxDistance));
+          heroContent.style.opacity = opacity;
+        } else {
+          heroContent.style.opacity = 1;
+        }
+      }
+    });
+  </script>
 </head>
 
-<body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
+<body class="leading-normal tracking-normal text-white gradient overflow-x-hidden" style="font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;">
   <!--Nav-->
   <nav id="header" class="fixed w-full z-30 top-0 text-white">
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
@@ -44,57 +126,67 @@
         id="nav-content">
         <ul class="list-reset lg:flex justify-end flex-1 items-center">
           <li class="mr-3">
-            <a class="inline-block py-2 px-4 font-semibold no-underline" href="#hero">Beranda</a>
+            <a class="inline-block py-2 px-4 text-white font-semibold no-underline" href="#hero">Beranda</a>
           </li>
           <li class="mr-3">
-            <a class="inline-block py-2 px-4 no-underline" href="#services">Layanan</a>
+            <a class="inline-block py-2 px-4 text-white font-semibold no-underline" href="#services">Layanan</a>
           </li>
           <li class="mr-3">
-            <a class="inline-block py-2 px-4 no-underline" href="#galeri">Galeri</a>
+            <a class="inline-block py-2 px-4 text-white font-semibold no-underline" href="#area">Area</a>
           </li>
           <li class="mr-3">
-            <a class="inline-block py-2 px-4 no-underline" href="#about">Tentang</a>
+            <a class="inline-block py-2 px-4 text-white font-semibold no-underline" href="#testimoni">Testimoni</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block py-2 px-4 text-white font-semibold no-underline" href="#tentang">Tentang</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block py-2 px-4 text-white font-semibold no-underline" href="#hubungi">Hubungi</a>
           </li>
         </ul>
-
-        <a href="#contact"
-          class="mx-auto lg:mx-0 bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-3 px-6 shadow transform transition hover:scale-105 duration-300 ease-in-out">
-          Hubungi Kami
-        </a>
       </div>
     </div>
     <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
   </nav>
 
   <!--Hero-->
-  <div id="hero" class="pt-24">
+  <div id="hero" class="pt-24 pb-24 md:pb-32 hero-container">
+  <div class="hero-content">
     <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
       <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-        <p class="uppercase tracking-wide text-sm font-semibold">
+        <p class="uppercase tracking-wide text-sm font-semibold animate-fade-in-up hero-text">
           Teknisi AC & Ducting Pekanbaru
         </p>
 
-        <h1 class="my-4 text-5xl font-bold leading-tight">
+        <h1 class="my-4 text-5xl font-bold leading-tight animate-fade-in-up hero-text-main">
           Spesialis Ducting Pekanbaru
         </h1>
 
-        <p class="leading-normal text-lg mb-8">
-          Melayani pembuatan dan pemasangan ducting AC, bongkar pasang AC central, dan exhaust system (dapur MBG,
+        <p class="leading-normal text-lg mb-8 animate-fade-in-up hero-text-desc">
+          Melayani pembuatan dan pemasangan ducting AC, bongkar pasang AC central, dan exhaust system (Dapur MBG,
           Restoran, Kafe, Hotel, Kantor, dll) dengan teknisi berpengalaman >30 tahun di pulau Jawa. Harga bersahabat dan
           respon cepat.
         </p>
 
-        <a href="#contact"
-          class="mx-auto lg:mx-0 bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg transform transition hover:scale-105 duration-300 ease-in-out">
+        <a
+          href="https://wa.me/6282113424319"
+          class="mx-auto lg:mx-0 bg-green-600 text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg transform transition hover:scale-105 duration-300 ease-in-out animate-fade-in-up hero-btn"
+        >
           Hubungi via WhatsApp
         </a>
       </div>
 
-      <div class="w-full md:w-3/5 py-6 text-center">
-        <img class="w-full md:w-4/5 z-50" src="hero.png" alt="Teknisi AC sedang melakukan perawatan unit AC" />
+      <div class="w-full md:w-3/5 py-6 flex justify-center md:justify-end">
+        <img
+          class="w-full md:w-4/5 max-w-lg rounded-2xl shadow-xl animate-fade-in-scale hero-image"
+          src="fig/hero.png"
+          alt="Teknisi AC sedang melakukan perawatan unit AC"
+        />
       </div>
     </div>
   </div>
+</div>
+
 
   <!--Wave-->
   <div class="relative -mt-12 lg:-mt-24">
@@ -208,9 +300,64 @@
       </div>
     </section>
 
+    <!-- About -->
+          <section id="tentang" class="py-20 text-slate-900 bg-white">
+            <div class="text-black container max-w-6xl mx-auto px-4">
+              <h2 class="w-full my-2 text-4xl md:text-5xl font-bold leading-tight text-center text-slate-900">
+                Tentang Kami
+              </h2>
+
+              <div class="w-full mb-12">
+                <div class="h-1 mx-auto gradient w-64 opacity-25 my-4 rounded-t"></div>
+                <p class="text-center text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                  Karya Arybil Teknik adalah penyedia jasa teknisi AC dan sistem ducting
+                  yang melayani wilayah Pekanbaru dan sekitarnya. Dengan pengalaman lebih
+                  dari 30 tahun di bidang tata udara, kami berkomitmen memberikan solusi
+                  pendinginan dan sirkulasi udara yang efektif, rapi, dan tahan lama.
+                </p>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-12 mt-12">
+  <div class="relative rounded-2xl p-8 bg-gradient-to-br from-blue-50 to-blue-200 shadow-sm">
+    <h3 class="text-xl font-semibold text-slate-900 mb-3">
+      Pengalaman & Keahlian
+    </h3>
+    <p class="text-slate-700 leading-relaxed mb-4">
+      Tim kami terbiasa menangani berbagai jenis pekerjaan, mulai dari
+      pembuatan dan pemasangan ducting AC, bongkar pasang AC central,
+      hingga exhaust system untuk bangunan komersial.
+    </p>
+    <ul class="space-y-2 text-slate-700">
+      <li>• Rumah tinggal dan ruko</li>
+      <li>• Kantor dan gedung perkantoran</li>
+      <li>• Restoran, kafe, dan dapur MBG</li>
+      <li>• Hotel dan bangunan komersial</li>
+    </ul>
+  </div>
+
+  <div class="relative rounded-2xl p-8 bg-gradient-to-br from-blue-50 to-blue-200 shadow-sm">
+    <h3 class="text-xl font-semibold text-slate-900 mb-3">
+      Komitmen Kami
+    </h3>
+    <p class="text-slate-700 leading-relaxed mb-4">
+      Kami mengutamakan kualitas kerja dan kepuasan pelanggan. Setiap proyek
+      dikerjakan dengan perhitungan teknis yang matang, komunikasi yang jelas,
+      serta harga yang transparan.
+    </p>
+    <ul class="space-y-2 text-slate-700">
+      <li>• Teknisi berpengalaman & profesional</li>
+      <li>• Respon cepat dan layanan responsif</li>
+      <li>• Pengerjaan rapi dan bertanggung jawab</li>
+      <li>• Siap menangani kebutuhan darurat</li>
+    </ul>
+  </div>
+</div>
+
+            </div>
+          </section>
+
 
     
-    <!-- Change the colour #f8fafc to match the previous section colour -->
     <svg class="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink">
       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -236,21 +383,7 @@
         </g>
       </g>
     </svg>
-    <section class="container mx-auto text-center py-6 mb-12">
-      <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
-        Call to Action
-      </h2>
-      <div class="w-full mb-4">
-        <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
-      </div>
-      <h3 class="my-4 text-3xl leading-tight">
-        Main Hero Message to sell yourself!
-      </h3>
-      <button
-        class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-        Action!
-      </button>
-    </section>
+    
 
     <!--Footer-->
     <footer class="bg-gray-800 text-gray-300 pt-16 pb-8">
@@ -262,8 +395,7 @@
               Karya Arybil Teknik
             </h3>
             <p class="text-sm leading-relaxed">
-              Jasa service AC dan sistem tata udara untuk rumah, kantor, dan bangunan komersial di Pekanbaru dan
-              sekitarnya.
+              Jasa pembuatan dan pemasangan ducting AC, bongkar pasang AC central, dan exhaust system
             </p>
           </div>
 
@@ -272,11 +404,21 @@
               Layanan
             </h4>
             <ul class="space-y-2 text-sm">
-              <li><a href="#services" class="hover:text-white">Cuci AC</a></li>
-              <li><a href="#services" class="hover:text-white">Isi & Tambah Freon</a></li>
-              <li><a href="#services" class="hover:text-white">Bongkar Pasang AC</a></li>
-              <li><a href="#services" class="hover:text-white">Ducting & Exhaust</a></li>
-              <li><a href="#services" class="hover:text-white">Perawatan Berkala</a></li>
+              <li>
+                <a href="#services" class="hover:text-white">
+                  Bongkar Pasang AC Central
+                </a>
+              </li>
+              <li>
+                <a href="#services" class="hover:text-white">
+                  Ducting & Exhaust System
+                </a>
+              </li>
+              <li>
+                <a href="#services" class="hover:text-white">
+                  Perawatan Berkala
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -287,12 +429,12 @@
             <ul class="space-y-3 text-sm">
               <li>
                 <a href="tel:08XXXXXXXXXX" class="hover:text-white">
-                  Telp: 08XXXXXXXXXX
+                  Telp: 082113424319
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/62XXXXXXXXXX" class="hover:text-white">
-                  WhatsApp: 08XXXXXXXXXX
+                <a href="https://wa.me/6282113424319" class="hover:text-white">
+                  WhatsApp: 082113424319
                 </a>
               </li>
               <li>
@@ -316,9 +458,6 @@
                 <span>Sabtu – Minggu</span>
                 <span>08.00 – 18.00</span>
               </li>
-              <li class="pt-3 text-green-400 font-medium">
-                Layanan darurat tersedia
-              </li>
             </ul>
           </div>
 
@@ -326,7 +465,7 @@
 
         <div class="border-t border-gray-700 pt-6 text-center text-sm">
           <p>
-            © 2025 Karya Arybil Teknik. All rights reserved.
+            © 2026 Karya Arybil Teknik. All rights reserved.
           </p>
           <p class="text-gray-500 mt-2">
             Jasa service AC Pekanbaru, teknisi AC panggilan, cuci AC, isi freon, ducting dan exhaust system.
@@ -336,9 +475,7 @@
     </footer>
 
   </section>
-    <!-- jQuery if you need it
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  -->
+  
     <script>
       var scrollpos = window.scrollY;
       var header = document.getElementById("header");
